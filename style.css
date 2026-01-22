@@ -64,20 +64,32 @@ header {
 }
 
 /* View switcher buttons */
+.btn-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
 .btn-group .btn {
-    border-radius: 25px !important;
-    margin: 0 5px;
+    border-radius: 20px !important;
+    margin: 0;
     font-weight: 500;
     transition: all 0.3s ease;
     background: var(--bg-secondary);
     color: var(--text-primary);
     border-color: var(--border-color);
+    flex: 1;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    text-align: center;
 }
 
 .btn-group .btn.active {
     background: var(--accent-gradient);
     border-color: var(--accent);
-    transform: scale(1.05);
+    transform: scale(1.02);
     color: white;
 }
 
@@ -366,6 +378,42 @@ header {
     .fab-container {
         bottom: 20px;
         right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-group .btn {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+        border-radius: 15px !important;
+    }
+    
+    .header-content, .main-content {
+        padding: 0 10px;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .header-content p {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .btn-group {
+        gap: 4px;
+    }
+    
+    .btn-group .btn {
+        font-size: 0.7rem;
+        padding: 5px 6px;
+        border-radius: 12px !important;
     }
 }
 
