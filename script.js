@@ -7,6 +7,7 @@ class FitnessApp {
         this.loadExercises();
         this.updateSchedule();
         this.initChart();
+        this.initTheme();
     }
 
     initializeData() {
@@ -100,6 +101,14 @@ class FitnessApp {
         if (fabButton) {
             fabButton.addEventListener('click', () => {
                 this.showNotification('🔧 Función para agregar ejercicios próximamente');
+            });
+        }
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                this.toggleTheme();
             });
         }
     }
@@ -1064,6 +1073,36 @@ function switchToView(viewName) {
 function saveRoutine() {
     app.saveRoutine();
 }
+
+// Theme management
+FitnessApp.prototype.initTheme = function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    this.setTheme(savedTheme);
+    
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.checked = savedTheme === 'dark';
+};
+
+FitnessApp.prototype.setTheme = function(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update toggle icon
+    const toggleIcon = document.querySelector('.toggle-icon');
+    if (theme === 'dark') {
+        toggleIcon.textContent = '☀️';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1a1a1a');
+    } else {
+        toggleIcon.textContent = '🌙';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#2563eb');
+    }
+};
+
+FitnessApp.prototype.toggleTheme = function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    this.setTheme(newTheme);
+};
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
