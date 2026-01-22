@@ -588,8 +588,7 @@ class FitnessApp {
 
     updateSchedule() {
         const scheduleList = document.getElementById('schedule-list');
-        const muscleGroups = Object.keys(this.data.exercises);
-        const schedule = this.generateWeeklySchedule(muscleGroups);
+        const schedule = this.generateWeeklySchedule();
 
         scheduleList.innerHTML = '';
         schedule.forEach(day => {
@@ -604,12 +603,13 @@ class FitnessApp {
         });
     }
 
-    generateWeeklySchedule(muscleGroups) {
+    generateWeeklySchedule() {
         const schedule = [];
         const today = new Date();
-        let dayIndex = 0;
-        const actualMuscleGroups = ['pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-A', 'piernas-B'];
-        let muscleIndex = actualMuscleGroups.indexOf(this.data.currentWorkout.muscleGroup);
+        
+        // Get user-specific schedule
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        const userSchedule = users[this.currentUserId]?.schedule || this.getDefaultSchedule();
         
         const groupNames = {
             'pecho-espalda-A': 'Pecho-Espalda A',
@@ -617,33 +617,38 @@ class FitnessApp {
             'brazos-A': 'Brazos A',
             'brazos-B': 'Brazos B',
             'piernas-A': 'Piernas A',
-            'piernas-B': 'Piernas B'
+            'piernas-B': 'Piernas B',
+            'piernas-C': 'Piernas C',
+            'abdomen-cardio': 'Abdomen-Cardio'
         };
 
-        // Generate 7 days
+        // Get current day of week to align with user's schedule
+        const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        
+        // Generate 7 days starting from today
         for (let i = 0; i < 7; i++) {
             const date = new Date(today);
             date.setDate(today.getDate() + i);
+            const dayName = daysOfWeek[date.getDay()];
             
-            // Schedule: 2 days training, 1 rest, repeat
-            if (dayIndex % 3 === 2) {
+            // Find the routine for this day from user's schedule
+            const dayRoutine = userSchedule.routine.find(r => r.day === dayName);
+            
+            if (dayRoutine && dayRoutine.muscleGroup !== 'rest') {
+                schedule.push({
+                    date,
+                    type: 'workout',
+                    muscleGroup: groupNames[dayRoutine.muscleGroup] || dayRoutine.muscleGroup,
+                    completed: false
+                });
+            } else {
                 schedule.push({
                     date,
                     type: 'rest',
                     muscleGroup: null,
                     completed: false
                 });
-            } else {
-                schedule.push({
-                    date,
-                    type: 'workout',
-                    muscleGroup: groupNames[actualMuscleGroups[muscleIndex]] || 'Entrenamiento',
-                    completed: false
-                });
-                muscleIndex = (muscleIndex + 1) % actualMuscleGroups.length;
             }
-            
-            dayIndex++;
         }
 
         return schedule;
