@@ -6,12 +6,12 @@ body {
 }
 
 .container {
-    max-width: 480px;
+    max-width: 800px; /* Increased from 480px for better desktop viewing */
     background: white;
-    border-radius: 20px 20px 0 0;
-    margin-top: 20px;
+    border-radius: 20px;
+    margin: 20px auto;
     min-height: calc(100vh - 40px);
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 /* Header styling */
@@ -43,6 +43,11 @@ header {
     border-left: 4px solid #28a745;
 }
 
+.exercise-card.editable-exercise {
+    border-left-color: #17a2b8;
+    background: #e3f2fd;
+}
+
 .exercise-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -60,12 +65,77 @@ header {
 }
 
 .recommended-badge {
-    background: #28a745;
     color: white;
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.7rem;
     font-weight: 600;
+}
+
+.recommended-badge.recommendation-increase {
+    background: #28a745; /* Verde - aumentar */
+}
+
+.recommended-badge.recommendation-decrease {
+    background: #ffc107; /* Amarillo - disminuir */
+    color: #000;
+}
+
+.recommended-badge.recommendation-maintain {
+    background: #17a2b8; /* Azul - mantener */
+}
+
+.recommended-badge.recommendation-deload {
+    background: #dc3545; /* Rojo - descarga necesaria */
+    animation: pulse 2s infinite;
+}
+
+.recommended-badge.recommendation-plateau {
+    background: #fd7e14; /* Naranja - plateau detectado */
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.deload-warning {
+    background: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+    margin-left: 10px;
+}
+
+/* Simple progress chart */
+.simple-progress {
+    text-align: center;
+    padding: 20px;
+}
+
+.progress-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.stat-item .badge {
+    font-size: 0.9rem;
 }
 
 .exercise-details {
@@ -210,21 +280,56 @@ header {
     }
 }
 
+/* Form controls for routine editor */
+.form-control-sm {
+    font-size: 0.875rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+/* Smooth transitions for editable elements */
+.editable-exercise {
+    transition: all 0.3s ease;
+}
+
+.editable-exercise button {
+    transition: all 0.2s ease;
+}
+
+.editable-exercise button:hover {
+    transform: scale(1.1);
+}
+
 /* Responsive adjustments */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .container {
+        max-width: 480px;
         margin: 0;
-        border-radius: 0;
+        border-radius: 20px 20px 0 0;
         min-height: 100vh;
     }
     
     header {
-        border-radius: 0;
+        border-radius: 20px 20px 0 0;
     }
     
     .fab-container {
         bottom: 20px;
         right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        border-radius: 0;
+    }
+    
+    header {
+        border-radius: 0;
     }
 }
 

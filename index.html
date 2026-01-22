@@ -32,13 +32,14 @@
                 <button type="button" class="btn btn-outline-primary active" data-view="workout">Entrenamiento</button>
                 <button type="button" class="btn btn-outline-primary" data-view="progress">Progreso</button>
                 <button type="button" class="btn btn-outline-primary" data-view="schedule">Calendario</button>
+                <button type="button" class="btn btn-outline-primary" data-view="routines">Rutinas</button>
             </div>
 
             <!-- Workout View -->
             <div id="workout-view" class="view active">
                 <div class="card mb-3">
                     <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">🎯 Hoy: Día de Pecho</h5>
+                        <h5 class="mb-0" id="workout-title">🎯 Hoy: Entrenamiento</h5>
                     </div>
                     <div class="card-body">
                         <p class="text-muted mb-3">Descanso recomendado entre series: 90-120 segundos</p>
@@ -95,6 +96,50 @@
                         <div id="schedule-list">
                             <!-- Schedule will be loaded here -->
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Routines View -->
+            <div id="routines-view" class="view" style="display:none;">
+                <div class="card mb-3">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">💪 Editar Rutinas</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Muscle Group Selector -->
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Seleccionar Grupo Muscular:</strong></label>
+                            <select id="muscle-group-selector" class="form-select" onchange="loadRoutineEditor()">
+                                <optgroup label="🏋️ Pecho-Espalda">
+                                    <option value="pecho-espalda-A">Pecho-Espalda A</option>
+                                    <option value="pecho-espalda-B">Pecho-Espalda B</option>
+                                </optgroup>
+                                <optgroup label="💪 Brazos">
+                                    <option value="brazos-A">Brazos A</option>
+                                    <option value="brazos-B">Brazos B</option>
+                                </optgroup>
+                                <optgroup label="🦵 Piernas">
+                                    <option value="piernas-A">Piernas A</option>
+                                    <option value="piernas-B">Piernas B</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Exercises List -->
+                        <div id="routine-exercises-list">
+                            <!-- Exercises will be loaded here -->
+                        </div>
+
+                        <!-- Add Exercise Button -->
+                        <button class="btn btn-success w-100 mb-3" onclick="addNewExercise()">
+                            ➕ Agregar Ejercicio
+                        </button>
+
+                        <!-- Save Routine Button -->
+                        <button class="btn btn-primary w-100" onclick="saveRoutine()">
+                            💾 Guardar Rutina
+                        </button>
                     </div>
                 </div>
             </div>
