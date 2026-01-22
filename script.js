@@ -61,6 +61,23 @@ class FitnessApp {
                 { name: 'Elevación de talones', series: 4, reps: 15, rest: 60, weight: 50 },
                 { name: 'Hip thrust', series: 3, reps: 12, rest: 90, weight: 60 },
                 { name: 'Paternitas con mancuernas', series: 3, reps: 12, rest: 90, weight: 10 }
+            ],
+            'piernas-C': [
+                { name: 'Sentadilla búlgara', series: 4, reps: 8, rest: 120, weight: 20 },
+                { name: 'Prensa inclinada', series: 4, reps: 12, rest: 90, weight: 80 },
+                { name: 'Extensiones de cuádriceps', series: 3, reps: 15, rest: 60, weight: 40 },
+                { name: 'Curl femoral acostado', series: 3, reps: 12, rest: 60, weight: 25 },
+                { name: 'Elevación de gemelos de pie', series: 4, reps: 20, rest: 45, weight: 40 },
+                { name: 'Sentadilla sumo con mancuerna', series: 3, reps: 10, rest: 90, weight: 30 }
+            ],
+            'abdomen-cardio': [
+                { name: 'Plancha', series: 3, reps: '60 segundos', rest: 60, weight: 0 },
+                { name: 'Elevación de piernas', series: 3, reps: 15, rest: 45, weight: 0 },
+                { name: 'Crunch abdominal', series: 4, reps: 20, rest: 45, weight: 0 },
+                { name: 'Bicicleta abdominal', series: 3, reps: 20, rest: 45, weight: 0 },
+                { name: 'Mountain climbers', series: 3, reps: 20, rest: 45, weight: 0 },
+                { name: 'Salto de cuerda', series: 5, reps: '3 minutos', rest: 60, weight: 0 },
+                { name: 'Burpees', series: 3, reps: 10, rest: 90, weight: 0 }
             ]
         };
 
@@ -1244,7 +1261,7 @@ FitnessApp.prototype.generateScheduleConfig = function() {
     if (!container) return;
     
     const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const muscleGroups = ['Descanso', 'pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-A', 'piernas-B'];
+    const muscleGroups = ['Descanso', 'pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-A', 'piernas-B', 'piernas-C', 'abdomen-cardio'];
     
     container.innerHTML = '';
     
