@@ -65,25 +65,29 @@ header {
 
 /* View switcher buttons */
 .btn-group {
-    display: flex;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 6px;
     width: 100%;
-    flex-wrap: nowrap;
 }
 
 .btn-group .btn {
-    border-radius: 20px !important;
+    border-radius: 15px !important;
     margin: 0;
     font-weight: 500;
     transition: all 0.3s ease;
     background: var(--bg-secondary);
     color: var(--text-primary);
     border-color: var(--border-color);
-    flex: 1;
     white-space: nowrap;
-    font-size: 0.85rem;
-    padding: 8px 12px;
+    font-size: 0.8rem;
+    padding: 6px 8px;
     text-align: center;
+    line-height: 1.2;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-group .btn.active {
@@ -382,11 +386,30 @@ header {
 }
 
 @media (max-width: 480px) {
+    .btn-group {
+        gap: 4px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
     .btn-group .btn {
         font-size: 0.75rem;
-        padding: 6px 8px;
-        border-radius: 15px !important;
+        padding: 5px 6px;
+        border-radius: 12px !important;
+        min-height: 35px;
     }
+}
+
+@media (max-width: 375px) {
+    .btn-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .btn-group .btn {
+        font-size: 0.7rem;
+        padding: 4px 5px;
+        min-height: 32px;
+    }
+}
     
     .header-content, .main-content {
         padding: 0 10px;

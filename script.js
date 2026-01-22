@@ -146,26 +146,41 @@ class FitnessApp {
                 { name: 'Extensiones overhead con mancuerna', series: 3, reps: 12, rest: 60, weight: 15 },
                 { name: 'Flexiones con agarre cerrado', series: 3, reps: 10, rest: 60, weight: 0 }
             ],
-            'piernas-A': [
+            'piernas-hombre-A': [
                 { name: 'Sentadillas con barra', series: 4, reps: 12, rest: 180, weight: 80 },
                 { name: 'Prensa de piernas', series: 3, reps: 15, rest: 120, weight: 100 },
                 { name: 'Zancadas con mancuernas', series: 3, reps: 10, rest: 90, weight: 15 },
                 { name: 'Elevación de gemelos', series: 4, reps: 20, rest: 60, weight: 30 }
             ],
-            'piernas-B': [
+            'piernas-hombre-B': [
                 { name: 'Peso muerto rumano', series: 4, reps: 10, rest: 120, weight: 70 },
                 { name: 'Sentadilla frontal', series: 3, reps: 10, rest: 180, weight: 40 },
                 { name: 'Elevación de talones', series: 4, reps: 15, rest: 60, weight: 50 },
                 { name: 'Hip thrust', series: 3, reps: 12, rest: 90, weight: 60 },
                 { name: 'Paternitas con mancuernas', series: 3, reps: 12, rest: 90, weight: 10 }
             ],
-            'piernas-C': [
-                { name: 'Sentadilla búlgara', series: 4, reps: 8, rest: 120, weight: 20 },
-                { name: 'Prensa inclinada', series: 4, reps: 12, rest: 90, weight: 80 },
-                { name: 'Extensiones de cuádriceps', series: 3, reps: 15, rest: 60, weight: 40 },
-                { name: 'Curl femoral acostado', series: 3, reps: 12, rest: 60, weight: 25 },
-                { name: 'Elevación de gemelos de pie', series: 4, reps: 20, rest: 45, weight: 40 },
-                { name: 'Sentadilla sumo con mancuerna', series: 3, reps: 10, rest: 90, weight: 30 }
+            'piernas-mujer-A': [
+                { name: 'Sentadilla con mancuernas', series: 3, reps: 15, rest: 90, weight: 15 },
+                { name: 'Zancada lateral', series: 3, reps: 12, rest: 60, weight: 8 },
+                { name: 'Prensa de piernas (45°)', series: 3, reps: 20, rest: 90, weight: 60 },
+                { name: 'Elevación de talones', series: 4, reps: 15, rest: 45, weight: 30 },
+                { name: 'Sentadilla sumo', series: 3, reps: 12, rest: 90, weight: 20 }
+            ],
+            'piernas-mujer-B': [
+                { name: 'Sentadilla búlgara', series: 3, reps: 10, rest: 90, weight: 12 },
+                { name: 'Peso muerto rumano', series: 3, reps: 12, rest: 90, weight: 25 },
+                { name: 'Prensa inclinada', series: 3, reps: 15, rest: 60, weight: 50 },
+                { name: 'Curl femoral sentado', series: 3, reps: 15, rest: 60, weight: 20 },
+                { name: 'Elevación de gemelos en máquina', series: 4, reps: 20, rest: 45, weight: 40 }
+            ],
+            'gluteos': [
+                { name: 'Hip thrust con barra', series: 4, reps: 12, rest: 90, weight: 40 },
+                { name: 'Sentadilla sumo', series: 3, reps: 15, rest: 60, weight: 30 },
+                { name: 'Peso muerto rumano', series: 4, reps: 12, rest: 90, weight: 35 },
+                { name: 'Patada de glúteo en polea', series: 3, reps: 15, rest: 60, weight: 25 },
+                { name: 'Elevación de cadera', series: 3, reps: 12, rest: 60, weight: 0 },
+                { name: 'Zancada con mancuerna', series: 3, reps: 12, rest: 60, weight: 15 },
+                { name: 'Abducción de cadera en máquina', series: 3, reps: 20, rest: 45, weight: 30 }
             ],
             'abdomen-cardio': [
                 { name: 'Plancha', series: 3, reps: '60 segundos', rest: 60, weight: 0 },
@@ -707,9 +722,11 @@ class FitnessApp {
             'pecho-espalda-B': 'Pecho-Espalda B',
             'brazos-A': 'Brazos A',
             'brazos-B': 'Brazos B',
-            'piernas-A': 'Piernas A',
-            'piernas-B': 'Piernas B',
-            'piernas-C': 'Piernas C',
+            'piernas-hombre-A': 'Piernas Hombre A',
+            'piernas-hombre-B': 'Piernas Hombre B',
+            'piernas-mujer-A': 'Piernas Mujer A',
+            'piernas-mujer-B': 'Piernas Mujer B',
+            'gluteos': 'Glúteos',
             'abdomen-cardio': 'Abdomen-Cardio'
         };
 
@@ -1357,7 +1374,7 @@ FitnessApp.prototype.generateScheduleConfig = function() {
     if (!container) return;
     
     const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const muscleGroups = ['Descanso', 'pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-A', 'piernas-B', 'piernas-C', 'abdomen-cardio'];
+    const muscleGroups = ['Descanso', 'pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-hombre-A', 'piernas-hombre-B', 'piernas-mujer-A', 'piernas-mujer-B', 'gluteos', 'abdomen-cardio'];
     
     container.innerHTML = '';
     
