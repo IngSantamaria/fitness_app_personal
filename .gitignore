@@ -1,3 +1,17 @@
+# JavaScript
 node_modules/
+
+# Sistema
 .DS_Store
+Thumbs.db
+
+# Logs
 *.log
+
+# Crypto data files
+crypto_stock_analyzer/data/*.json
+crypto_stock_analyzer/__pycache__/
+crypto_stock_analyzer/src/__pycache__/
+
+# Temporales
+*.tmp
