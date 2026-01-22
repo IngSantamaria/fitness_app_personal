@@ -1,0 +1,14 @@
+{
+  "symbol": "ETH",
+  "type": "crypto",
+  "current_price": 3083.01,
+  "volume_24h": 20781870542,
+  "change_24h": -0.31449,
+  "high_24h": 3136.52,
+  "low_24h": 3066.55,
+  "market_cap": 372118844224,
+  "historical_data": [],
+  "indicators": {},
+  "timestamp": "2026-01-09T15:28:27.240573",
+  "source": "CoinGecko API"
+}

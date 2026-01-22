@@ -1,0 +1,18 @@
+{
+  "symbol": "SMH",
+  "type": "stock",
+  "current_price": 255.92088135435026,
+  "volume_24h": 48797779.12424306,
+  "change_24h": -3.9880829159027984,
+  "high_24h": 263.5985077949808,
+  "low_24h": 248.24325491371974,
+  "market_cap": 749666705176.737,
+  "pe_ratio": 12.019991427506174,
+  "dividend_yield": 0.006473090083019873,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 51.922279894555054
+  },
+  "timestamp": "2026-01-09T11:49:43.548928",
+  "note": "Simulated data - APIs not available"
+}

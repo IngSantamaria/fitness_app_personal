@@ -1,0 +1,15 @@
+{
+  "symbol": "SOL",
+  "type": "crypto",
+  "current_price": 45346.52454682572,
+  "volume_24h": 12712634.354030939,
+  "change_24h": -2.599354991905174,
+  "high_24h": 47613.85077416701,
+  "low_24h": 43079.19831948443,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 37.439600346850995
+  },
+  "timestamp": "2026-01-09T11:49:32.410068",
+  "note": "Simulated data - APIs not available"
+}

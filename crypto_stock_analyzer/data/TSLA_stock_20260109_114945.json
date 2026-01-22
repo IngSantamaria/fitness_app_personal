@@ -1,0 +1,18 @@
+{
+  "symbol": "TSLA",
+  "type": "stock",
+  "current_price": 449.7662972036463,
+  "volume_24h": 37762507.773742266,
+  "change_24h": -3.449714896674061,
+  "high_24h": 463.2592861197557,
+  "low_24h": 436.27330828753685,
+  "market_cap": 62888417043.169846,
+  "pe_ratio": 18.99364012503345,
+  "dividend_yield": 0.0027591339976859143,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 38.24487327557859
+  },
+  "timestamp": "2026-01-09T11:49:39.487756",
+  "note": "Simulated data - APIs not available"
+}

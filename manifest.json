@@ -1,0 +1,24 @@
+{
+  "name": "Mi Entrenador Fitness",
+  "short_name": "Fitness App",
+  "description": "Tu app personal de entrenamiento y progreso fitness",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["health", "fitness", "sports"],
+  "lang": "es"
+}

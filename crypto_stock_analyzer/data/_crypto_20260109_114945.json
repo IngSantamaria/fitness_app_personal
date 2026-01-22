@@ -1,0 +1,15 @@
+{
+  "symbol": "",
+  "type": "crypto",
+  "current_price": 13025.82862282538,
+  "volume_24h": 70891539.78456245,
+  "change_24h": -2.861994704181332,
+  "high_24h": 13677.12005396665,
+  "low_24h": 12374.53719168411,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 76.9479953421762
+  },
+  "timestamp": "2026-01-09T11:49:31.384430",
+  "note": "Simulated data - APIs not available"
+}

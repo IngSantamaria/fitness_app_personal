@@ -1,0 +1,18 @@
+{
+  "symbol": "MU",
+  "type": "stock",
+  "current_price": 68.21947544983166,
+  "volume_24h": 26805062.922427557,
+  "change_24h": 3.4081197639408405,
+  "high_24h": 70.26605971332661,
+  "low_24h": 66.17289118633671,
+  "market_cap": 98970452873.86758,
+  "pe_ratio": 28.449907415899677,
+  "dividend_yield": 0.045849405729666136,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 56.934279129992106
+  },
+  "timestamp": "2026-01-09T11:49:37.471994",
+  "note": "Simulated data - APIs not available"
+}

@@ -1,0 +1,18 @@
+{
+  "symbol": "SHLD",
+  "type": "stock",
+  "current_price": 342.1126304476877,
+  "volume_24h": 4504110.8722571675,
+  "change_24h": -3.5857949894966357,
+  "high_24h": 352.37600936111835,
+  "low_24h": 331.84925153425706,
+  "market_cap": 375675180031.70184,
+  "pe_ratio": 13.413850327526518,
+  "dividend_yield": 0.03839612836818865,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 31.776404961473503
+  },
+  "timestamp": "2026-01-09T11:49:42.535088",
+  "note": "Simulated data - APIs not available"
+}

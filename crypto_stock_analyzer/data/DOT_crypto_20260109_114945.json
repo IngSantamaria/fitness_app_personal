@@ -1,0 +1,15 @@
+{
+  "symbol": "DOT",
+  "type": "crypto",
+  "current_price": 34556.758680628256,
+  "volume_24h": 40959399.63500733,
+  "change_24h": 1.4427397137250182,
+  "high_24h": 36284.59661465967,
+  "low_24h": 32828.92074659684,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 57.71203982967508
+  },
+  "timestamp": "2026-01-09T11:49:34.441603",
+  "note": "Simulated data - APIs not available"
+}

@@ -1,0 +1,15 @@
+{
+  "watchlist": {
+    "btc": {
+      "symbol": "BTC",
+      "custom_name": "VENTA",
+      "buy_alert_price": 95100.0,
+      "sell_alert_price": 100000.0,
+      "added_date": "2026-01-14T10:01:42.281903",
+      "last_updated": "2026-01-14T10:01:42.281903"
+    }
+  },
+  "alerts": {},
+  "created_at": "2026-01-09T13:58:29.510975",
+  "updated_at": "2026-01-14T10:01:42.281903"
+}

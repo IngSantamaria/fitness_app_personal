@@ -1,0 +1,15 @@
+{
+  "symbol": "PEPE",
+  "type": "crypto",
+  "current_price": 6.1957e-06,
+  "volume_24h": 0,
+  "change_24h": 0.0,
+  "high_24h": 6.1957e-06,
+  "low_24h": 6.1957e-06,
+  "historical_data": [],
+  "monthly_data": [],
+  "indicators": {},
+  "monthly_indicators": {},
+  "timestamp": "2026-01-14T11:32:14.355705",
+  "source": "Yahoo Finance API"
+}

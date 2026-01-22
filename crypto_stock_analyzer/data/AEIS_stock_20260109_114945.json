@@ -1,0 +1,18 @@
+{
+  "symbol": "AEIS",
+  "type": "stock",
+  "current_price": 89.96623011120099,
+  "volume_24h": 38742572.57719561,
+  "change_24h": 1.3999501069536482,
+  "high_24h": 92.66521701453702,
+  "low_24h": 87.26724320786495,
+  "market_cap": 479335063475.3231,
+  "pe_ratio": 22.89505091231483,
+  "dividend_yield": 0.015194265087607312,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 21.905049244821505
+  },
+  "timestamp": "2026-01-09T11:49:36.457673",
+  "note": "Simulated data - APIs not available"
+}

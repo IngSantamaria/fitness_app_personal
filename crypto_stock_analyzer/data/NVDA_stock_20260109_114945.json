@@ -1,0 +1,18 @@
+{
+  "symbol": "NVDA",
+  "type": "stock",
+  "current_price": 305.7048324959138,
+  "volume_24h": 9846786.787781829,
+  "change_24h": -2.4616007303872434,
+  "high_24h": 314.87597747079127,
+  "low_24h": 296.53368752103637,
+  "market_cap": 288024387313.7884,
+  "pe_ratio": 22.556781790563683,
+  "dividend_yield": 0.027282520319519155,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 49.161321101825564
+  },
+  "timestamp": "2026-01-09T11:49:35.442982",
+  "note": "Simulated data - APIs not available"
+}

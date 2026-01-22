@@ -1,0 +1,14 @@
+{
+  "symbol": "BTC",
+  "type": "crypto",
+  "current_price": 92215,
+  "volume_24h": 48030226340,
+  "change_24h": 1.17135,
+  "high_24h": 92645,
+  "low_24h": 90897,
+  "market_cap": 1842019361143,
+  "historical_data": [],
+  "indicators": {},
+  "timestamp": "2026-01-13T10:22:52.215639",
+  "source": "CoinGecko API"
+}

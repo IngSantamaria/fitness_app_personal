@@ -1,0 +1,18 @@
+{
+  "symbol": "SKYY",
+  "type": "stock",
+  "current_price": 429.6122343374192,
+  "volume_24h": 13632651.248991128,
+  "change_24h": -4.799406710262904,
+  "high_24h": 442.5006013675418,
+  "low_24h": 416.7238673072966,
+  "market_cap": 639218187961.0376,
+  "pe_ratio": 16.361949417462142,
+  "dividend_yield": 0.0028584012220454814,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 39.77554795574683
+  },
+  "timestamp": "2026-01-09T11:49:44.564396",
+  "note": "Simulated data - APIs not available"
+}

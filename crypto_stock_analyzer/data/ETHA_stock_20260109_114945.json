@@ -1,0 +1,18 @@
+{
+  "symbol": "ETHA",
+  "type": "stock",
+  "current_price": 190.2309557924632,
+  "volume_24h": 18208488.541585498,
+  "change_24h": 0.4989535437764605,
+  "high_24h": 195.93788446623708,
+  "low_24h": 184.5240271186893,
+  "market_cap": 266527733159.03992,
+  "pe_ratio": 19.250743079669782,
+  "dividend_yield": 0.040524564845025104,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 44.71458074988614
+  },
+  "timestamp": "2026-01-09T11:49:41.520353",
+  "note": "Simulated data - APIs not available"
+}

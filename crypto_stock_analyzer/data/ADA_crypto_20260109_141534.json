@@ -1,0 +1,14 @@
+{
+  "symbol": "ADA",
+  "type": "crypto",
+  "current_price": 0.390916,
+  "volume_24h": 532694763,
+  "change_24h": -1.0835,
+  "high_24h": 0.402238,
+  "low_24h": 0.389145,
+  "market_cap": 14383172164,
+  "historical_data": [],
+  "indicators": {},
+  "timestamp": "2026-01-09T14:15:17.341737",
+  "source": "CoinGecko API"
+}

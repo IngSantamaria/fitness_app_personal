@@ -1,0 +1,247 @@
+/* Mobile-first responsive design */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 480px;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    margin-top: 20px;
+    min-height: calc(100vh - 40px);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+}
+
+/* Header styling */
+header {
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+}
+
+/* View switcher buttons */
+.btn-group .btn {
+    border-radius: 25px !important;
+    margin: 0 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-group .btn.active {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    border-color: #2563eb;
+    transform: scale(1.05);
+}
+
+/* Exercise cards */
+.exercise-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+    border-left: 4px solid #28a745;
+}
+
+.exercise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.exercise-header {
+    padding: 15px;
+    cursor: pointer;
+}
+
+.exercise-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.recommended-badge {
+    background: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.exercise-details {
+    padding: 0 15px 15px;
+    display: none;
+}
+
+.exercise-details.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Series inputs */
+.serie-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.serie-input input {
+    width: 60px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 5px;
+    transition: border-color 0.2s;
+}
+
+.serie-input input:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+.serie-input input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Floating Action Button */
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.fab:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+}
+
+/* Progress cards */
+.progress-stat {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    transition: transform 0.2s ease;
+}
+
+.progress-stat:hover {
+    transform: translateY(-3px);
+}
+
+.progress-stat h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+/* Schedule items */
+.schedule-day {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border-left: 4px solid #ffc107;
+    background: #fff3cd;
+    transition: all 0.2s ease;
+}
+
+.schedule-day:hover {
+    background: #ffeaa7;
+    transform: translateX(5px);
+}
+
+.schedule-day.completed {
+    border-left-color: #28a745;
+    background: #d4edda;
+    opacity: 0.8;
+}
+
+.schedule-day.rest {
+    border-left-color: #6c757d;
+    background: #f8f9fa;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .container {
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+    
+    header {
+        border-radius: 0;
+    }
+    
+    .fab-container {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2563eb;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1e40af;
+}

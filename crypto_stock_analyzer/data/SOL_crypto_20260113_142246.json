@@ -1,0 +1,16 @@
+{
+  "symbol": "SOL",
+  "type": "crypto",
+  "current_price": 143.27,
+  "volume_24h": 6774572123,
+  "change_24h": 1.45583,
+  "high_24h": 143.81,
+  "low_24h": 137.93,
+  "market_cap": 80932970148,
+  "historical_data": [],
+  "monthly_data": [],
+  "indicators": {},
+  "monthly_indicators": {},
+  "timestamp": "2026-01-13T14:22:40.811744",
+  "source": "CoinGecko API"
+}

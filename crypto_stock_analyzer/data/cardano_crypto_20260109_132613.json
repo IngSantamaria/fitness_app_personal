@@ -1,0 +1,14 @@
+{
+  "symbol": "CARDANO",
+  "type": "crypto",
+  "current_price": 0.392635,
+  "volume_24h": 495567237,
+  "change_24h": -0.67581,
+  "high_24h": 0.402238,
+  "low_24h": 0.389145,
+  "market_cap": 14467740333,
+  "historical_data": [],
+  "indicators": {},
+  "timestamp": "2026-01-09T13:26:07.949979",
+  "source": "CoinGecko API"
+}

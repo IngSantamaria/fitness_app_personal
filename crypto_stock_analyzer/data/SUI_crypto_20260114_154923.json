@@ -1,0 +1,15 @@
+{
+  "symbol": "SUI",
+  "type": "crypto",
+  "current_price": 0.000300194,
+  "volume_24h": 0,
+  "change_24h": 0.0,
+  "high_24h": 0.000300194,
+  "low_24h": 0.000300194,
+  "historical_data": [],
+  "monthly_data": [],
+  "indicators": {},
+  "monthly_indicators": {},
+  "timestamp": "2026-01-14T15:49:11.769055",
+  "source": "Yahoo Finance API"
+}

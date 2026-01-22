@@ -1,0 +1,15 @@
+{
+  "symbol": "XRP",
+  "type": "crypto",
+  "current_price": 37856.30680973983,
+  "volume_24h": 72595112.39599368,
+  "change_24h": 7.4394954636633805,
+  "high_24h": 39749.12215022682,
+  "low_24h": 35963.49146925283,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 32.613745600244464
+  },
+  "timestamp": "2026-01-09T11:49:33.426723",
+  "note": "Simulated data - APIs not available"
+}

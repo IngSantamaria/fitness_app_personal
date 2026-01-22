@@ -1,0 +1,18 @@
+{
+  "symbol": "IBIT",
+  "type": "stock",
+  "current_price": 312.452484374375,
+  "volume_24h": 39790518.55270487,
+  "change_24h": -1.6330396745564757,
+  "high_24h": 321.82605890560626,
+  "low_24h": 303.0789098431437,
+  "market_cap": 936462037731.0144,
+  "pe_ratio": 29.47907332743667,
+  "dividend_yield": 0.02243769201051924,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 52.05652074039703
+  },
+  "timestamp": "2026-01-09T11:49:40.503572",
+  "note": "Simulated data - APIs not available"
+}

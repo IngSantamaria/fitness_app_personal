@@ -1,0 +1,18 @@
+{
+  "symbol": "GOOGL",
+  "type": "stock",
+  "current_price": 70.16350357872821,
+  "volume_24h": 8034091.899834166,
+  "change_24h": -3.4605704952018534,
+  "high_24h": 72.26840868609005,
+  "low_24h": 68.05859847136637,
+  "market_cap": 574684170945.7173,
+  "pe_ratio": 21.077864436938253,
+  "dividend_yield": 0.026277196584427107,
+  "historical_data": [],
+  "indicators": {
+    "rsi": 29.60284684230929
+  },
+  "timestamp": "2026-01-09T11:49:38.473159",
+  "note": "Simulated data - APIs not available"
+}
