@@ -533,3 +533,49 @@ input:checked + .slider + .toggle-icon {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
 }
+
+/* Users View Styles */
+.schedule-config {
+    margin: 15px 0;
+}
+
+.day-config {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.day-config select {
+    margin-top: 5px;
+}
+
+.user-item {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item button {
+    padding: 2px 8px;
+    font-size: 0.8rem;
+}
+
+.user-list-container {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.alert {
+    border: 1px solid var(--border-color);
+}
+
+.alert-info {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}

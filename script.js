@@ -2,8 +2,10 @@
 class FitnessApp {
     constructor() {
         this.currentView = 'workout';
+        this.currentUserId = localStorage.getItem('currentUserId') || null;
         this.initializeData();
         this.setupEventListeners();
+        this.loadUserManagement();
         this.loadExercises();
         this.updateSchedule();
         this.initChart();
@@ -11,6 +13,12 @@ class FitnessApp {
     }
 
     initializeData() {
+        // Initialize users system
+        const users = localStorage.getItem('fitnessUsers');
+        if (!users) {
+            localStorage.setItem('fitnessUsers', JSON.stringify({}));
+        }
+        
         // Default exercises data
         this.defaultExercises = {
             'pecho-espalda-A': [
@@ -56,34 +64,13 @@ class FitnessApp {
             ]
         };
 
-        // Check if data exists in localStorage
-        if (!localStorage.getItem('fitnessData')) {
-            const initialData = {
-                exercises: this.defaultExercises,
-                workouts: [],
-                progress: {},
-                currentWorkout: {
-                    date: new Date().toISOString(),
-                    muscleGroup: 'pecho-espalda-A', // Default, will be updated in initialization
-                    completedExercises: []
-                }
-            };
-            localStorage.setItem('fitnessData', JSON.stringify(initialData));
-        }
-
-        this.data = JSON.parse(localStorage.getItem('fitnessData'));
-        
-        // Initialize week type if not exists
-        if (!this.data.weekType) {
-            this.data.weekType = determineWeekType();
-            localStorage.setItem('fitnessData', JSON.stringify(this.data));
-        }
+        this.loadUserData();
         
         // Update current workout to today's routine if needed
         const todayRoutine = getTodaysRoutine(this.data.weekType);
         if (this.data.currentWorkout.muscleGroup !== todayRoutine && todayRoutine !== 'descanso') {
             this.data.currentWorkout.muscleGroup = todayRoutine;
-            localStorage.setItem('fitnessData', JSON.stringify(this.data));
+            this.saveUserData();
         }
     }
 
@@ -135,6 +122,8 @@ class FitnessApp {
             this.updateSchedule();
         } else if (viewName === 'routines') {
             this.loadRoutineEditor();
+        } else if (viewName === 'users') {
+            this.loadUserManagement();
         }
     }
 
@@ -541,7 +530,7 @@ class FitnessApp {
         }
 
         // Save to localStorage
-        localStorage.setItem('fitnessData', JSON.stringify(this.data));
+        this.saveUserData();
 
         // Show success feedback
         this.showNotification(`✅ ${exercise.name} guardado correctamente!`);
@@ -562,7 +551,7 @@ class FitnessApp {
         // If tomorrow is Monday, switch week type
         if (tomorrow.getDay() === 1) {
             this.data.weekType = this.data.weekType === 'A' ? 'B' : 'A';
-            localStorage.setItem('fitnessData', JSON.stringify(this.data));
+            this.saveUserData();
         }
 
         // Update current workout to today's routine
@@ -573,7 +562,7 @@ class FitnessApp {
         };
 
         // Save and reload
-        localStorage.setItem('fitnessData', JSON.stringify(this.data));
+        this.saveUserData();
         this.loadExercises(); // This will update title and exercises
         this.updateSchedule();
         
@@ -852,7 +841,7 @@ class FitnessApp {
 
         // Save to data structure
         this.data.exercises[muscleGroup] = exercises;
-        localStorage.setItem('fitnessData', JSON.stringify(this.data));
+        this.saveUserData();
 
         // Reload current workout if it's the affected muscle group
         if (this.data.currentWorkout.muscleGroup === muscleGroup) {
@@ -1103,6 +1092,274 @@ FitnessApp.prototype.toggleTheme = function() {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     this.setTheme(newTheme);
 };
+
+// User Management Functions
+FitnessApp.prototype.loadUserData = function() {
+    if (!this.currentUserId) {
+        // Create default user if none exists
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        const userIds = Object.keys(users);
+        if (userIds.length === 0) {
+            this.currentUserId = 'user_' + Date.now();
+            users[this.currentUserId] = {
+                name: 'Usuario Default',
+                createdAt: new Date().toISOString(),
+                schedule: this.getDefaultSchedule()
+            };
+            localStorage.setItem('fitnessUsers', JSON.stringify(users));
+            localStorage.setItem('currentUserId', this.currentUserId);
+        } else {
+            this.currentUserId = userIds[0];
+            localStorage.setItem('currentUserId', this.currentUserId);
+        }
+    }
+
+    // Load user-specific data
+    const userKey = 'fitnessData_' + this.currentUserId;
+    let userData = localStorage.getItem(userKey);
+    
+    if (!userData) {
+        userData = {
+            exercises: this.defaultExercises,
+            workouts: [],
+            progress: {},
+            currentWorkout: {
+                date: new Date().toISOString(),
+                muscleGroup: 'pecho-espalda-A',
+                completedExercises: []
+            },
+            weekType: determineWeekType()
+        };
+        localStorage.setItem(userKey, JSON.stringify(userData));
+    } else {
+        userData = JSON.parse(userData);
+    }
+    
+    this.data = userData;
+};
+
+FitnessApp.prototype.getDefaultSchedule = function() {
+    return {
+        days: 4,
+        routine: [
+            { day: 'Lunes', muscleGroup: 'pecho-espalda-A' },
+            { day: 'Martes', muscleGroup: 'brazos-A' },
+            { day: 'Miércoles', muscleGroup: 'piernas-A' },
+            { day: 'Jueves', muscleGroup: 'pecho-espalda-B' },
+            { day: 'Viernes', muscleGroup: 'rest' },
+            { day: 'Sábado', muscleGroup: 'brazos-B' },
+            { day: 'Domingo', muscleGroup: 'rest' }
+        ]
+    };
+};
+
+FitnessApp.prototype.loadUserManagement = function() {
+    this.updateUserSelector();
+    this.updateUsersList();
+    this.updateCurrentUserDisplay();
+    this.generateScheduleConfig();
+};
+
+FitnessApp.prototype.updateUserSelector = function() {
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    const selector = document.getElementById('user-selector');
+    if (!selector) return;
+    
+    selector.innerHTML = '<option value="">-- Seleccionar usuario --</option>';
+    
+    Object.keys(users).forEach(userId => {
+        const user = users[userId];
+        const option = document.createElement('option');
+        option.value = userId;
+        option.textContent = user.name;
+        if (userId === this.currentUserId) {
+            option.selected = true;
+        }
+        selector.appendChild(option);
+    });
+};
+
+FitnessApp.prototype.updateUsersList = function() {
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    const list = document.getElementById('users-list');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    Object.keys(users).forEach(userId => {
+        const user = users[userId];
+        const userItem = document.createElement('div');
+        userItem.className = 'user-item';
+        userItem.innerHTML = `
+            <div>
+                <strong>${user.name}</strong>
+                ${userId === this.currentUserId ? '<span class="badge bg-primary ms-2">Actual</span>' : ''}
+            </div>
+            <button class="btn btn-sm btn-danger" onclick="app.deleteUser('${userId}')">Eliminar</button>
+        `;
+        list.appendChild(userItem);
+    });
+};
+
+FitnessApp.prototype.updateCurrentUserDisplay = function() {
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    const display = document.getElementById('current-user-name');
+    if (display && this.currentUserId && users[this.currentUserId]) {
+        display.textContent = users[this.currentUserId].name;
+    }
+};
+
+FitnessApp.prototype.createDefaultUser = function(name) {
+    const userId = 'user_' + Date.now();
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    
+    users[userId] = {
+        name: name,
+        createdAt: new Date().toISOString(),
+        schedule: this.getDefaultSchedule()
+    };
+    
+    localStorage.setItem('fitnessUsers', JSON.stringify(users));
+    
+    // Create user data
+    const userData = {
+        exercises: this.defaultExercises,
+        workouts: [],
+        progress: {},
+        currentWorkout: {
+            date: new Date().toISOString(),
+            muscleGroup: 'pecho-espalda-A',
+            completedExercises: []
+        },
+        weekType: determineWeekType()
+    };
+    
+    localStorage.setItem('fitnessData_' + userId, JSON.stringify(userData));
+    
+    return userId;
+};
+
+FitnessApp.prototype.generateScheduleConfig = function() {
+    const container = document.getElementById('schedule-config');
+    if (!container) return;
+    
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const muscleGroups = ['Descanso', 'pecho-espalda-A', 'pecho-espalda-B', 'brazos-A', 'brazos-B', 'piernas-A', 'piernas-B'];
+    
+    container.innerHTML = '';
+    
+    days.forEach(day => {
+        const dayConfig = document.createElement('div');
+        dayConfig.className = 'day-config';
+        dayConfig.innerHTML = `
+            <label class="form-label">${day}:</label>
+            <select class="form-select day-routine" data-day="${day}">
+                ${muscleGroups.map(group => {
+                    const value = group === 'Descanso' ? 'rest' : group;
+                    const label = group === 'Descanso' ? '🛌 Descanso' : 
+                                  group.includes('pecho') ? '🏋️ ' + group.replace('-', ' ').toUpperCase() :
+                                  group.includes('brazos') ? '💪 ' + group.replace('-', ' ').toUpperCase() :
+                                  '🦵 ' + group.replace('-', ' ').toUpperCase();
+                    return `<option value="${value}">${label}</option>`;
+                }).join('')}
+            </select>
+        `;
+        container.appendChild(dayConfig);
+    });
+};
+
+FitnessApp.prototype.switchUser = function() {
+    const selector = document.getElementById('user-selector');
+    const newUserId = selector.value;
+    
+    if (!newUserId) {
+        this.showNotification('Por favor selecciona un usuario válido');
+        return;
+    }
+    
+    // Save current user data
+    this.saveUserData();
+    
+    // Switch to new user
+    this.currentUserId = newUserId;
+    localStorage.setItem('currentUserId', newUserId);
+    
+    // Load new user data
+    this.loadUserData();
+    this.loadUserManagement();
+    this.loadExercises();
+    this.updateSchedule();
+    
+    this.showNotification(`Usuario cambiado a: ${selector.options[selector.selectedIndex].text}`);
+};
+
+FitnessApp.prototype.deleteUser = function(userId) {
+    if (userId === this.currentUserId) {
+        this.showNotification('No puedes eliminar el usuario actual');
+        return;
+    }
+    
+    if (confirm('¿Estás seguro de eliminar este usuario? Se perderán todos sus datos.')) {
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        delete users[userId];
+        localStorage.setItem('fitnessUsers', JSON.stringify(users));
+        
+        // Delete user data
+        localStorage.removeItem('fitnessData_' + userId);
+        
+        this.loadUserManagement();
+        this.showNotification('Usuario eliminado correctamente');
+    }
+};
+
+FitnessApp.prototype.saveUserData = function() {
+    const userKey = 'fitnessData_' + this.currentUserId;
+    localStorage.setItem(userKey, JSON.stringify(this.data));
+};
+
+// Global functions for user management
+function createNewUser() {
+    const nameInput = document.getElementById('new-user-name');
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+        app.showNotification('Por favor ingresa un nombre de usuario');
+        return;
+    }
+    
+    const userId = app.createDefaultUser(name);
+    app.updateUserSelector();
+    app.updateUsersList();
+    
+    nameInput.value = '';
+    app.showNotification(`Usuario "${name}" creado correctamente`);
+}
+
+function switchUser() {
+    app.switchUser();
+}
+
+function saveUserSchedule() {
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    
+    const routine = days.map(day => {
+        const select = document.querySelector(`select[data-day="${day}"]`);
+        return {
+            day: day,
+            muscleGroup: select ? select.value : 'rest'
+        };
+    });
+    
+    users[app.currentUserId].schedule = {
+        days: parseInt(document.getElementById('training-days').value),
+        routine: routine
+    };
+    
+    localStorage.setItem('fitnessUsers', JSON.stringify(users));
+    app.showNotification('Configuración de rutina guardada correctamente');
+    app.updateSchedule();
+}
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {

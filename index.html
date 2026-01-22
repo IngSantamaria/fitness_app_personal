@@ -45,6 +45,7 @@
                 <button type="button" class="btn btn-outline-primary" data-view="progress">Progreso</button>
                 <button type="button" class="btn btn-outline-primary" data-view="schedule">Calendario</button>
                 <button type="button" class="btn btn-outline-primary" data-view="routines">Rutinas</button>
+                <button type="button" class="btn btn-outline-primary" data-view="users">Usuarios</button>
             </div>
 
             <!-- Workout View -->
@@ -152,6 +153,75 @@
                         <button class="btn btn-primary w-100" onclick="saveRoutine()">
                             💾 Guardar Rutina
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users View -->
+            <div id="users-view" class="view" style="display:none;">
+                <div class="card mb-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">👥 Gestión de Usuarios</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Current User Display -->
+                        <div class="alert alert-info mb-3" id="current-user-display">
+                            <strong>Usuario actual:</strong> <span id="current-user-name">No seleccionado</span>
+                        </div>
+
+                        <!-- User Selection -->
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Seleccionar Usuario:</strong></label>
+                            <select id="user-selector" class="form-select mb-2">
+                                <option value="">-- Seleccionar usuario --</option>
+                            </select>
+                            <button class="btn btn-primary w-100" onclick="switchUser()">
+                                🔄 Cambiar Usuario
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <!-- Create New User -->
+                        <div class="mb-3">
+                            <h6>🆕 Crear Nuevo Usuario</h6>
+                            <div class="mb-2">
+                                <input type="text" id="new-user-name" class="form-control" placeholder="Nombre del usuario">
+                            </div>
+                            <button class="btn btn-success w-100" onclick="createNewUser()">
+                                ➕ Crear Usuario
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <!-- User Schedule Configuration -->
+                        <div class="mb-3">
+                            <h6>📅 Configurar Rutina Semanal</h6>
+                            <div class="mb-2">
+                                <label class="form-label">Días de entrenamiento por semana:</label>
+                                <select id="training-days" class="form-select">
+                                    <option value="3">3 días</option>
+                                    <option value="4">4 días</option>
+                                    <option value="5">5 días</option>
+                                    <option value="6">6 días</option>
+                                </select>
+                            </div>
+                            <div id="schedule-config" class="schedule-config">
+                                <!-- Schedule will be generated here -->
+                            </div>
+                            <button class="btn btn-warning w-100" onclick="saveUserSchedule()">
+                                💾 Guardar Configuración
+                            </button>
+                        </div>
+
+                        <!-- User List -->
+                        <div class="mb-3">
+                            <h6>📋 Usuarios Registrados</h6>
+                            <div id="users-list">
+                                <!-- Users will be listed here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
