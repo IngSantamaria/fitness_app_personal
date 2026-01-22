@@ -16,29 +16,71 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="main-wrapper">
-        <!-- Header -->
-        <header class="bg-primary text-white p-3">
-            <div class="header-content">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1 class="mb-0">🏋️ Mi Entrenador Fitness</h1>
-                        <p class="mb-0 small">Tu app personal de entrenamiento</p>
-                    </div>
-                    <!-- Theme Toggle -->
-                    <div class="theme-toggle-container">
-                        <label class="theme-toggle">
-                            <input type="checkbox" id="theme-toggle">
-                            <span class="slider"></span>
-                            <span class="toggle-icon">🌙</span>
-                        </label>
+    <!-- User Selection Screen -->
+    <div id="user-selection-screen" class="screen">
+        <div class="selection-container">
+            <div class="selection-header">
+                <h1 class="text-center mb-3">🏋️ Mi Entrenador Fitness</h1>
+                <p class="text-center text-muted mb-4">Selecciona tu perfil para continuar</p>
+                <!-- Theme Toggle -->
+                <div class="theme-toggle-container justify-content-center">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                        <span class="toggle-icon">🌙</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="selection-content">
+                <!-- Users Grid -->
+                <div id="users-grid" class="users-grid mb-4">
+                    <!-- User cards will be loaded here -->
+                </div>
+
+                <!-- Create New User -->
+                <div class="create-user-section">
+                    <h5 class="text-center mb-3">🆕 Crear Nuevo Usuario</h5>
+                    <div class="input-group">
+                        <input type="text" id="new-user-name-main" class="form-control" placeholder="Nombre del nuevo usuario">
+                        <button class="btn btn-success" onclick="createNewUserFromMain()">➕</button>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </div>
 
-        <!-- Main Content -->
-        <main class="main-content py-4">
+    <!-- Main App Screen -->
+    <div id="main-app-screen" class="screen" style="display: none;">
+        <div class="main-wrapper">
+            <!-- Header -->
+            <header class="bg-primary text-white p-3">
+                <div class="header-content">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="mb-0">🏋️ Mi Entrenador Fitness</h1>
+                            <p class="mb-0 small">Usuario: <span id="current-user-header">-</span></p>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <!-- Theme Toggle -->
+                            <div class="theme-toggle-container">
+                                <label class="theme-toggle">
+                                    <input type="checkbox" id="theme-toggle-app">
+                                    <span class="slider"></span>
+                                    <span class="toggle-icon">🌙</span>
+                                </label>
+                            </div>
+                            <!-- Switch User Button -->
+                            <button class="btn btn-light btn-sm" onclick="showUserSelection()">
+                                👤 Cambiar Usuario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content py-4">
             <!-- View Switcher -->
             <div class="btn-group w-100 mb-4" role="group">
                 <button type="button" class="btn btn-outline-primary active" data-view="workout">Entrenamiento</button>
@@ -229,13 +271,14 @@
                     </div>
                 </div>
             </div>
-        </main>
+            </main>
 
-        <!-- Floating Action Button -->
-        <div class="fab-container">
-            <button class="btn btn-primary rounded-circle fab" onclick="showAddExercise()">
-                <span class="fs-4">+</span>
-            </button>
+            <!-- Floating Action Button -->
+            <div class="fab-container">
+                <button class="btn btn-primary rounded-circle fab" onclick="showAddExercise()">
+                    <span class="fs-4">+</span>
+                </button>
+            </div>
         </div>
     </div>
 

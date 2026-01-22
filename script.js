@@ -5,11 +5,108 @@ class FitnessApp {
         this.currentUserId = localStorage.getItem('currentUserId') || null;
         this.initializeData();
         this.setupEventListeners();
+        this.initTheme();
+        this.initializeApp();
+    }
+
+    initializeApp() {
+        // Check if there's a selected user, otherwise show user selection
+        if (this.currentUserId && this.userExists(this.currentUserId)) {
+            this.showMainApp();
+        } else {
+            this.showUserSelection();
+        }
+    }
+
+    userExists(userId) {
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        return users[userId] !== undefined;
+    }
+
+    showUserSelection() {
+        document.getElementById('user-selection-screen').style.display = 'block';
+        document.getElementById('main-app-screen').style.display = 'none';
+        this.loadUsersGrid();
+        this.setupThemeToggle('theme-toggle');
+    }
+
+    showMainApp() {
+        document.getElementById('user-selection-screen').style.display = 'none';
+        document.getElementById('main-app-screen').style.display = 'block';
+        this.loadUserData();
         this.loadUserManagement();
         this.loadExercises();
         this.updateSchedule();
         this.initChart();
-        this.initTheme();
+        this.updateCurrentUserHeader();
+        this.setupThemeToggle('theme-toggle-app');
+    }
+
+    updateCurrentUserHeader() {
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        const header = document.getElementById('current-user-header');
+        if (header && this.currentUserId && users[this.currentUserId]) {
+            header.textContent = users[this.currentUserId].name;
+        }
+    }
+
+    loadUsersGrid() {
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        const grid = document.getElementById('users-grid');
+        
+        grid.innerHTML = '';
+        
+        if (Object.keys(users).length === 0) {
+            grid.innerHTML = '<p class="text-center text-muted">No hay usuarios registrados. Crea tu primer usuario para comenzar.</p>';
+            return;
+        }
+        
+        Object.keys(users).forEach(userId => {
+            const user = users[userId];
+            const userCard = document.createElement('div');
+            userCard.className = 'user-card';
+            userCard.onclick = () => this.selectUser(userId);
+            
+            // Get user stats
+            const userKey = 'fitnessData_' + userId;
+            const userData = JSON.parse(localStorage.getItem(userKey) || '{}');
+            const workoutCount = userData.workouts?.length || 0;
+            
+            userCard.innerHTML = `
+                <div class="user-avatar">💪</div>
+                <div class="user-name">${user.name}</div>
+                <div class="user-stats">${workoutCount} entrenamientos</div>
+                ${userId === this.currentUserId ? '<div class="badge bg-primary mt-2">Actual</div>' : ''}
+            `;
+            
+            grid.appendChild(userCard);
+        });
+    }
+
+    selectUser(userId) {
+        this.currentUserId = userId;
+        localStorage.setItem('currentUserId', userId);
+        this.showMainApp();
+        
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        this.showNotification(`Bienvenido(a) ${users[userId].name}!`);
+    }
+
+    setupThemeToggle(toggleId) {
+        const themeToggle = document.getElementById(toggleId);
+        if (themeToggle) {
+            // Remove existing listener to avoid duplicates
+            const newToggle = themeToggle.cloneNode(true);
+            themeToggle.parentNode.replaceChild(newToggle, themeToggle);
+            
+            newToggle.addEventListener('change', () => {
+                this.toggleTheme();
+            });
+            
+            // Set current state
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            newToggle.checked = savedTheme === 'dark';
+        }
     }
 
     initializeData() {
@@ -108,13 +205,7 @@ class FitnessApp {
             });
         }
         
-        // Theme toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('change', () => {
-                this.toggleTheme();
-            });
-        }
+        // Theme toggle is now handled per screen in setupThemeToggle function
     }
 
     switchView(viewName) {
@@ -1357,8 +1448,29 @@ function createNewUser() {
     app.showNotification(`Usuario "${name}" creado correctamente`);
 }
 
+function createNewUserFromMain() {
+    const nameInput = document.getElementById('new-user-name-main');
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+        app.showNotification('Por favor ingresa un nombre de usuario');
+        return;
+    }
+    
+    const userId = app.createDefaultUser(name);
+    nameInput.value = '';
+    
+    // Auto-select the new user
+    app.selectUser(userId);
+    app.showNotification(`Usuario "${name}" creado y seleccionado correctamente`);
+}
+
 function switchUser() {
     app.switchUser();
+}
+
+function showUserSelection() {
+    app.showUserSelection();
 }
 
 function saveUserSchedule() {
