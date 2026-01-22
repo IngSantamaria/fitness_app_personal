@@ -196,8 +196,8 @@ class FitnessApp {
         this.loadUserData();
         
         // Update current workout to today's routine if needed
-        const todayRoutine = getTodaysRoutine(this.data.weekType);
-        if (this.data.currentWorkout.muscleGroup !== todayRoutine && todayRoutine !== 'descanso') {
+        const todayRoutine = this.getTodayRoutine();
+        if (this.data.currentWorkout.muscleGroup !== todayRoutine && todayRoutine !== 'rest') {
             this.data.currentWorkout.muscleGroup = todayRoutine;
             this.saveUserData();
         }
@@ -252,8 +252,10 @@ class FitnessApp {
 
     loadExercises() {
         const exerciseList = document.getElementById('exercise-list');
-        const currentWorkout = this.data.currentWorkout;
-        const exercises = this.data.exercises[currentWorkout.muscleGroup] || this.data.exercises['pecho-espalda-A'];
+        
+        // Get today's routine from user schedule
+        const todayRoutine = this.getTodayRoutine();
+        const exercises = this.data.exercises[todayRoutine] || this.data.exercises['pecho-espalda-A'];
 
         exerciseList.innerHTML = '';
 
@@ -265,12 +267,16 @@ class FitnessApp {
                 'pecho-espalda-B': 'Día de Pecho-Espalda B',
                 'brazos-A': 'Día de Brazos A',
                 'brazos-B': 'Día de Brazos B',
-                'piernas-A': 'Día de Piernas A',
-                'piernas-B': 'Día de Piernas B',
-                'descanso': 'Día de Descanso'
+                'piernas-hombre-A': 'Día de Piernas Hombre A',
+                'piernas-hombre-B': 'Día de Piernas Hombre B',
+                'piernas-mujer-A': 'Día de Piernas Mujer A',
+                'piernas-mujer-B': 'Día de Piernas Mujer B',
+                'gluteos': 'Día de Glúteos',
+                'abdomen-cardio': 'Día de Abdomen-Cardio',
+                'rest': 'Día de Descanso'
             };
             
-            const routineName = groupNames[currentWorkout.muscleGroup] || 'Entrenamiento';
+            const routineName = groupNames[todayRoutine] || 'Entrenamiento';
             
             // Check for deload recommendation
             const deloadCheck = this.checkDeloadNeed();
@@ -285,15 +291,15 @@ class FitnessApp {
         }
 
         // If it's a rest day, show different content
-        if (currentWorkout.muscleGroup === 'descanso') {
+        if (todayRoutine === 'rest') {
             exerciseList.innerHTML = `
                 <div class="text-center py-5">
                     <h3>😴 Día de Descanso</h3>
                     <p class="text-muted">Tu cuerpo necesita recuperarse para crecer más fuerte.</p>
                     <div class="mt-4">
                         <h5>Próximo entrenamiento:</h5>
-                        <p class="lead">${getNextWorkoutDay(this.data.weekType).routine}</p>
-                        <small class="text-muted">${getNextWorkoutDay(this.data.weekType).date.toLocaleDateString('es', { weekday: 'long', month: 'short', day: 'numeric' })}</small>
+                        <p class="lead">${getNextWorkoutDay().routine}</p>
+                        <small class="text-muted">${getNextWorkoutDay().date.toLocaleDateString('es', { weekday: 'long', month: 'short', day: 'numeric' })}</small>
                     </div>
                 </div>
             `;
@@ -762,6 +768,21 @@ class FitnessApp {
         return schedule;
     }
 
+    getTodayRoutine() {
+        // Get user-specific schedule
+        const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+        const userSchedule = users[this.currentUserId]?.schedule || this.getDefaultSchedule();
+        
+        // Get current day of week
+        const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const today = new Date();
+        const dayName = daysOfWeek[today.getDay()];
+        
+        // Find routine for today
+        const dayRoutine = userSchedule.routine.find(r => r.day === dayName);
+        return dayRoutine ? dayRoutine.muscleGroup : 'rest';
+    }
+
     initChart() {
         const ctx = document.getElementById('progressChart');
         if (ctx) {
@@ -1121,29 +1142,40 @@ function getTodaysRoutine(weekType) {
     return weekSchedule[today] || 'descanso';
 }
 
-function getNextWorkoutDay(weekType) {
+function getNextWorkoutDay() {
     const today = new Date();
+    const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    
+    // Get user-specific schedule
+    const users = JSON.parse(localStorage.getItem('fitnessUsers') || '{}');
+    const currentUserId = localStorage.getItem('currentUserId');
+    const userSchedule = users[currentUserId]?.schedule || app.getDefaultSchedule();
+    
+    const groupNames = {
+        'pecho-espalda-A': 'Pecho-Espalda A',
+        'pecho-espalda-B': 'Pecho-Espalda B',
+        'brazos-A': 'Brazos A',
+        'brazos-B': 'Brazos B',
+        'piernas-hombre-A': 'Piernas Hombre A',
+        'piernas-hombre-B': 'Piernas Hombre B',
+        'piernas-mujer-A': 'Piernas Mujer A',
+        'piernas-mujer-B': 'Piernas Mujer B',
+        'gluteos': 'Glúteos',
+        'abdomen-cardio': 'Abdomen-Cardio',
+        'rest': 'Descanso'
+    };
     
     // Encontrar el próximo día de entrenamiento
     for (let i = 1; i <= 7; i++) {
         const futureDate = new Date(today);
         futureDate.setDate(today.getDate() + i);
-        const dayOfWeek = futureDate.getDay();
+        const dayName = daysOfWeek[futureDate.getDay()];
         
-        const scheduleA = {
-            0: 'piernas-B', 1: 'descanso', 2: 'pecho-espalda-B', 3: 'brazos-B', 
-            4: 'descanso', 5: 'piernas-A', 6: 'descanso'
-        };
-        const scheduleB = {
-            0: 'brazos-B', 1: 'descanso', 2: 'piernas-B', 3: 'pecho-espalda-B', 
-            4: 'descanso', 5: 'brazos-A', 6: 'descanso'
-        };
-        
-        const schedule = weekType === 'A' ? scheduleA : scheduleB;
-        if (schedule[dayOfWeek] !== 'descanso') {
+        const dayRoutine = userSchedule.routine.find(r => r.day === dayName);
+        if (dayRoutine && dayRoutine.muscleGroup !== 'rest') {
             return {
                 date: futureDate,
-                routine: schedule[dayOfWeek]
+                routine: groupNames[dayRoutine.muscleGroup] || dayRoutine.muscleGroup
             };
         }
     }
